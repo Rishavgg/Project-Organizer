@@ -7,7 +7,7 @@ public interface UserService {
 
     User findUserByEmail(String email) throws Exception;
 
-    User findUserById(Long UserId) throws Exception;
+    User findUserById(Long userId) throws Exception;
 
     User updateUserProjectSize(User user, int number);
 }
