@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,36 +53,68 @@ public class ProjectServiceImpl implements ProjectService {
             projects = projects.stream().filter(project -> project.getCategory().equals(category))
                     .collect(Collectors.toList());
         }
-        return null;
+        if (tag != null) {
+            projects = projects.stream().filter(project -> project.getTags().contains(category))
+                    .collect(Collectors.toList());
+        }
+        return projects;
     }
 
     @Override
     public Project getProjectById(Long projectId) throws Exception {
-        return null;
+        Optional<Project> optionalProject = projectRepository.findById(projectId);
+        if (optionalProject.isEmpty()) {
+            throw new Exception("Project Not found");
+        }
+        return optionalProject.get();
     }
 
     @Override
-    public void deleteProject(Long projectId, Long userId) throws Exception {
-
+    public void deleteProject(Long projectId) throws Exception {
+        projectRepository.deleteById(projectId);
     }
 
     @Override
     public Project updateProject(Project updatedProject, Long id) throws Exception {
-        return null;
+        Project project = getProjectById(id);
+        project.setName(updatedProject.getName());
+        project.setDescription(updatedProject.getDescription());
+        project.setTags(updatedProject.getTags());
+
+        return projectRepository.save(project);
     }
 
     @Override
     public void addUserToProject(Long projectId, Long userId) throws Exception {
-
+        Project project = getProjectById(projectId);
+        User user = userService.findUserById(userId);
+        if (!project.getTeam().contains(user)) {
+            project.getChat().getUsers().add(user);
+            project.getTeam().add(user);
+        }
+        projectRepository.save(project);
     }
 
     @Override
     public void removeUserToProject(Long projectId, Long userId) throws Exception {
-
+        Project project = getProjectById(projectId);
+        User user = userService.findUserById(userId);
+        if (project.getTeam().contains(user)) {
+            project.getChat().getUsers().remove(user);
+            project.getTeam().remove(user);
+        }
+        projectRepository.save(project);
     }
 
     @Override
     public Chat getChatByProjectId(Long projectId) throws Exception {
-        return null;
+        Project project = getProjectById(projectId);
+        return project.getChat();
+    }
+
+    @Override
+    public List<Project> searchProject(String keyword, User user) throws Exception {
+
+        return projectRepository.findByNameContainingAndTeamContains(keyword, user);
     }
 }
