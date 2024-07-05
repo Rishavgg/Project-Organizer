@@ -114,7 +114,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<Project> searchProject(String keyword, User user) throws Exception {
-
         return projectRepository.findByNameContainingAndTeamContains(keyword, user);
     }
 }
