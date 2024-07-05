@@ -1,6 +1,7 @@
 package com.rishav.service;
 
 import com.rishav.model.Issue;
+import com.rishav.model.User;
 import com.rishav.request.IssueRequest;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface IssueService {
 
     List<Issue> getIssueByProjectId(Long projectId) throws Exception;
 
-    Issue createIssue(IssueRequest issue, Long userId);
+    Issue createIssue(IssueRequest issue, User user) throws Exception;
 
 //    Optional<Issue> updateIssue(Long issueId, IssueRequest updateIssue, Long userId);
 
