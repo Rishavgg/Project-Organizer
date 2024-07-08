@@ -29,7 +29,7 @@ public class Issue {
     private String status;
     private Long projectId;
     private String priority;
-    private LocalDate dueData;
+    private LocalDate dueDate;
     private List<String> tags = new ArrayList<>();
     // jsonIgnore = This will avoid recursion problem because when we call our frontend this comments will call issue
     // and issue will call comments and goes on.

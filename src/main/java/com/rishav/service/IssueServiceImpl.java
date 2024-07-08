@@ -4,7 +4,6 @@ import com.rishav.model.Issue;
 import com.rishav.model.Project;
 import com.rishav.model.User;
 import com.rishav.repository.IssueRepository;
-import com.rishav.repository.ProjectRepository;
 import com.rishav.request.IssueRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,11 +20,14 @@ public class IssueServiceImpl implements IssueService {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
-    public Optional<Issue> getIssueById(Long issueId) throws Exception {
+    public Issue getIssueById(Long issueId) throws Exception {
         Optional<Issue> issue = issueRepository.findById(issueId);
         if (issue.isPresent()) {
-            return issue;
+            return issue.get();
         }
         throw new Exception("No issues found with issueId: " + issueId);
     }
@@ -46,25 +48,32 @@ public class IssueServiceImpl implements IssueService {
         issue.setProjectId(issueRequest.getProjectId());
         issue.setPriority(issueRequest.getPriority());
         issue.setDueData(issueRequest.getDueData());
-
         issue.setProject(project);
 
         return issueRepository.save(issue);
-
     }
 
     @Override
-    public String deleteIssue(Long issueId, Long userId) {
-        return null;
+    public void deleteIssue(Long issueId, Long userId) throws Exception {
+        getIssueById(issueId); // if issue not found it will throw the error
+        issueRepository.deleteById(issueId);
     }
 
     @Override
-    public Issue addUserToIssue(Long issueId, Long userId) {
-        return null;
+    public Issue addUserToIssue(Long issueId, Long userId) throws Exception {
+        User user = userService.findUserById(userId);
+        Issue issue = getIssueById(issueId);
+
+        issue.setAssignee(user);
+        return issueRepository.save(issue);
     }
 
+
     @Override
-    public Issue updateStatus(Long issueId, String status) {
-        return null;
+    public Issue updateStatus(Long issueId, String status) throws Exception {
+        Issue issue = getIssueById(issueId);
+
+        issue.setStatus(status);
+        return issueRepository.save(issue);
     }
 }

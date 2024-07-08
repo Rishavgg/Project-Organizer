@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface IssueService {
 
-    Optional<Issue> getIssueById(Long issueId) throws Exception;
+    Issue getIssueById(Long issueId) throws Exception;
 
     List<Issue> getIssueByProjectId(Long projectId) throws Exception;
 
@@ -17,15 +17,15 @@ public interface IssueService {
 
 //    Optional<Issue> updateIssue(Long issueId, IssueRequest updateIssue, Long userId);
 
-    String deleteIssue(Long issueId, Long userId);
+    void deleteIssue(Long issueId, Long userId) throws Exception;
 
 //    List<Issue> getIssueByAssigneeId(Long assigneeId);
 
 //    List<Issue> searchIssue(String title, String status, String priority, Long AssigneeId);
 
-    Issue addUserToIssue(Long issueId, Long userId);
+    Issue addUserToIssue(Long issueId, Long userId) throws Exception;
 
-    Issue updateStatus(Long issueId, String status);
+    Issue updateStatus(Long issueId, String status) throws Exception;
 
 
 
