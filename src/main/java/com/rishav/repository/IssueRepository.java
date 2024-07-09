@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IssueRepository extends JpaRepository<Issue, Long> {
 
-    public List<Issue> findByProjectID(Long id);
+    public List<Issue> findByProjectId(Long id);
 }
 
 

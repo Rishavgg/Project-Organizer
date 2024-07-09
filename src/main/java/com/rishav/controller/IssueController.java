@@ -4,9 +4,7 @@ import com.rishav.config.JwtConstant;
 import com.rishav.dto.IssueDTO;
 import com.rishav.model.Issue;
 import com.rishav.model.User;
-import com.rishav.repository.IssueRepository;
 import com.rishav.request.IssueRequest;
-import com.rishav.response.AuthResponse;
 import com.rishav.response.MessageResponse;
 import com.rishav.service.IssueService;
 import com.rishav.service.UserService;
@@ -49,7 +47,7 @@ public class IssueController {
         issueDTO.setTitle(createdIssue.getTitle());
         issueDTO.setDescription(createdIssue.getDescription());
         issueDTO.setStatus(createdIssue.getStatus());
-        issueDTO.setProjectID(createdIssue.getProject().getId());
+        issueDTO.setProjectId(createdIssue.getProject().getId());
         issueDTO.setPriority(createdIssue.getPriority());
         issueDTO.setDueDate(createdIssue.getDueDate()); // Assuming dueDates is of type LocalDate or Date
         issueDTO.setTags(createdIssue.getTags());

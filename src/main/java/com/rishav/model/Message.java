@@ -13,15 +13,15 @@ import static jakarta.persistence.GenerationType.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Message {
+public class Message{
 
     @Id
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String content;
 
-    private LocalDateTime cratedAt;
+    private LocalDateTime createdAt;
 
     @ManyToOne
     private Chat chat;

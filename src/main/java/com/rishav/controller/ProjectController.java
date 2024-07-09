@@ -10,7 +10,6 @@ import com.rishav.response.MessageResponse;
 import com.rishav.service.InvitationService;
 import com.rishav.service.ProjectService;
 import com.rishav.service.UserService;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -95,8 +94,8 @@ public class ProjectController {
         return new ResponseEntity<>(projectList , HttpStatus.OK);
     }
 
-    @GetMapping("/{projectId}")
-    public ResponseEntity<Chat> getChatProjectById(
+    @GetMapping("/{projectId}/chat")
+    public ResponseEntity<Chat> getChatByProjectId(
             @PathVariable Long projectId
     ) throws Exception {
         Chat chat = projectService.getChatByProjectId(projectId);
