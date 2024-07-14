@@ -24,6 +24,7 @@ public class CommentController {
     @Autowired
     private UserService userService;
 
+    @PostMapping()
     public ResponseEntity<Comment> createComment(
             @RequestBody CreateCommentRequest request,
             @RequestHeader(JwtConstant.JWT_HEADER) String jwt

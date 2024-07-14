@@ -74,7 +74,7 @@ public class ProjectController {
 
     @DeleteMapping("/{projectId}")
     public ResponseEntity<MessageResponse> deleteProject(
-            @RequestParam Long projectId
+            @PathVariable Long projectId
 //            @RequestHeader(JwtConstant.JWT_HEADER) String jwt,
 //            @RequestBody Project project
     ) throws Exception {
@@ -86,7 +86,7 @@ public class ProjectController {
 
     @GetMapping("/search")
     public ResponseEntity<List<Project>> searchProject(
-            @RequestParam(required = false)String keyword,
+            @RequestParam(required = false) String keyword,
             @RequestHeader("Authorization") String jwt
     ) throws Exception {
         User user = userService.findByProfileByJwt(jwt);
